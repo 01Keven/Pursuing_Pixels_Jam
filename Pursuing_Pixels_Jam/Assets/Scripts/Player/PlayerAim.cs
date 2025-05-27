@@ -8,7 +8,7 @@ public class PlayerAim : MonoBehaviour
 
     //[SerializeField] private float currentAmmoAmount;
 
-    private Transform bulletPoint;
+    private Transform attackPoint;
 
 
     //[SerializeField] private float shotColdown = 0.15f;
@@ -23,9 +23,9 @@ public class PlayerAim : MonoBehaviour
 
     private void Awake()
     {
-        //aimTransform = transform.Find("Aim");
+        aimTransform = transform.Find("Aim");
         //aimAnimator = aimTransform.GetComponentInChildren<Animator>();
-        bulletPoint = transform.Find("Aim/BulletPoint");
+        attackPoint = transform.Find("Aim/AttackPoint");
     }
 
     // Start is called before the first frame update
@@ -50,13 +50,13 @@ public class PlayerAim : MonoBehaviour
 
     void HandleAiming()
     {
-        Vector3 mousePosition = GetMouseWorldPosition(Camera.main, Input.mousePosition);
+        Vector3 mousePosition = Utils.GetMouseWorldPosition(Camera.main, Input.mousePosition);
 
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
 
         angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
-        //aimTransform.eulerAngles = new Vector3(0, 0, angle);
+        aimTransform.eulerAngles = new Vector3(0, 0, angle);
 
 
         Vector3 localScale = Vector3.one;
@@ -73,7 +73,7 @@ public class PlayerAim : MonoBehaviour
 
         }
 
-        //aimTransform.localScale = localScale;
+        aimTransform.localScale = localScale;
 
 
 

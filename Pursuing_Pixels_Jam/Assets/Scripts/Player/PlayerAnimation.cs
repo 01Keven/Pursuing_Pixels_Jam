@@ -32,7 +32,7 @@ public class PlayerAnimation : MonoBehaviour
     void Update()
     {
 
-        mousePos = aimWeapon.GetMouseWorldPosition(Camera.main, Input.mousePosition) - transform.position;
+        mousePos = Utils.GetMouseWorldPosition(Camera.main, Input.mousePosition) - transform.position;
     }
 
     private void LateUpdate()
