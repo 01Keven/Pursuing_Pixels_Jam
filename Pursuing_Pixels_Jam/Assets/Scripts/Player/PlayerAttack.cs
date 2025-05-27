@@ -7,12 +7,17 @@ public class PlayerAttack : MonoBehaviour
 
 
     [SerializeField] private Transform attackPoint;
-    
+
+
+    //TESTE//
+    //Mudar todas as referências de PlayerAbilities para verificar a partir do inventário.
+    PlayerAbilities playerAbilities;
 
     private void Awake()
     {
         attackPoint = transform.Find("Aim/AttackPoint");
         Debug.Log(attackPoint.gameObject.name);
+        playerAbilities = FindFirstObjectByType<PlayerAbilities>(); // Obtém a instância de PlayerAbilities
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
         // e executa a lógica de ataque, como tocar um som ou iniciar uma animação
         //Ataque a distância
 
-        if (Input.GetButtonDown("Fire1")) // outro botão para atacar, se necessário
+        if (Input.GetButtonDown("Fire1") && playerAbilities.hasAttack) // outro botão para atacar, se necessário
         {
             // Implement attack logic here, e.g., play an animation, deal damage, etc.
             Instantiate(bullet, attackPoint.position, Quaternion.identity);
