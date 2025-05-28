@@ -5,36 +5,32 @@ using UnityEngine.EventSystems;
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public Item item;
-    public Image image;
+    [SerializeField] private Image itemIcon;
     [HideInInspector] public Transform parentAfterDrag;
+
+    private void Awake()
+    {
+        if (itemIcon == null)
+        {
+            Transform iconTransform = transform.Find("ItemIcon");
+            if (iconTransform != null)
+                itemIcon = iconTransform.GetComponent<Image>();
+            else
+                itemIcon = GetComponent<Image>(); // fallback
+        }
+    }
 
     public void Initialiseitem(Item newItem)
     {
         item = newItem;
-
-        // Aqui pegamos a Image corretamente do filho "ItemIcon"
-        if (image == null)
-        {
-            Transform iconTransform = transform.Find("ItemIcon");
-            if (iconTransform != null)
-            {
-                image = iconTransform.GetComponent<Image>();
-            }
-            else
-            {
-                Debug.LogError("ItemIcon não encontrado como filho do InventoryItem!");
-                return;
-            }
-        }
-
-        image.sprite = newItem.icon;
+        itemIcon.sprite = newItem.icon;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        image.raycastTarget = false;
+        itemIcon.raycastTarget = false;
         parentAfterDrag = transform.parent;
-        transform.SetParent(transform.root); // Garante que fica por cima dos outros elementos
+        transform.SetParent(transform.root); // Libera para ser arrastado por cima
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -44,7 +40,9 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        image.raycastTarget = true;
-        transform.SetParent(parentAfterDrag); // Caso não solte em nenhum slot válido
+        itemIcon.raycastTarget = true;
+        transform.SetParent(parentAfterDrag);
+        transform.localScale = Vector3.one;
+        transform.localPosition = Vector3.zero; // Alinha no slot
     }
 }

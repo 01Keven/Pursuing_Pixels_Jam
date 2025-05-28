@@ -1,63 +1,50 @@
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.UI;
-
 
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
 
-    public inventorySlot[] inventorySlots;
+    public GameObject[] inventorySlots;
     public GameObject inventoryItemPrefab;
-
     public Transform ItemContent;
-
-    public List<Item> Items = new List<Item>();
+    public List<Item> Items = new List<Item>(); // Inicialmente vazia
 
     private void Awake()
     {
         Instance = this;
     }
 
-    int selectedSlot = -1;
-
     public void ListItems()
     {
+        // Limpa itens antigos antes de listar novamente
+        foreach (Transform child in ItemContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Adiciona novos itens se houver
         foreach (var item in Items)
         {
             GameObject obj = Instantiate(inventoryItemPrefab, ItemContent);
-            var itemIcon = obj.transform.Find("ItemIcon").GetComponent<UnityEngine.UI.Image>();
-            itemIcon.sprite = item.icon;
+            var inventoryItem = obj.GetComponent<InventoryItem>();
+            inventoryItem.Initialiseitem(item);
         }
-    }
-
-    void ChangeSelectedSlot(int newValue)
-    {
-        if (selectedSlot >= 0)
-        {
-            inventorySlots[selectedSlot].Deselect();
-        }
-        inventorySlots[newValue].Select();
-        selectedSlot = newValue;
     }
 
 public bool AddItem(Item item)
 {
     for (int i = 0; i < inventorySlots.Length; i++)
     {
-        inventorySlot slot = inventorySlots[i];
+        Transform slot = inventorySlots[i].transform;
 
-        // Verifica se o slot já tem um ícone atribuído (já tem item)
-        Image iconImage = slot.transform.Find("ItemIcon").GetComponent<Image>();
-        if (iconImage != null && iconImage.sprite == null)
+        // Verifica se o slot já tem um item dentro (ícone, etc.)
+        if (slot.childCount == 0)
         {
-            // Slot vazio – atribui o item
-            iconImage.sprite = item.icon;
-
-            // Armazena o item, se quiser acesso futuro
-            slot.storedItem = item;
-
+            GameObject newItemGO = Instantiate(inventoryItemPrefab, slot);
+            InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
+            inventoryItem.Initialiseitem(item);
             return true;
         }
     }
@@ -74,8 +61,16 @@ public bool AddItem(Item item)
         inventoryItem.Initialiseitem(item);
     }
 
-//     public Item GetSelectedItem()
-//     {
-//         inventorySlot slot = inventorySlots[selectedSlot];
-//     }
+    public void ClearInventory()
+    {
+        Items.Clear();
+
+        foreach (var slot in inventorySlots)
+        {
+            foreach (Transform child in slot.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
 }
