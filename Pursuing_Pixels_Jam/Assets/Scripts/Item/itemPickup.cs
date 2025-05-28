@@ -7,36 +7,29 @@ public class ItemPickup : MonoBehaviour
     private bool isDragging = false;
     private Vector3 offset;
     private Camera mainCamera;
-
-    private Transform originalParent;
-    private Transform canvasTransform;
+    private SpriteRenderer spriteRenderer;
+    private int originalSortingOrder;
 
     private void Start()
-{
-    mainCamera = Camera.main;
-
-    // Corrigido para Unity 2023+
-    Canvas canvas = Object.FindFirstObjectByType<Canvas>();
-    if (canvas != null)
     {
-        canvasTransform = canvas.transform;
+        mainCamera = Camera.main;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            originalSortingOrder = spriteRenderer.sortingOrder;
+        }
     }
-
-    originalParent = transform.parent;
-}
-
 
     private void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return; // evita conflito com UI
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         isDragging = true;
         offset = transform.position - GetMouseWorldPos();
 
-        // Move para o Canvas para aparecer sobre a UI
-        if (canvasTransform != null)
+        if (spriteRenderer != null)
         {
-            originalParent = transform.parent;
-            transform.SetParent(canvasTransform, true); // true mantém posição mundial
+            spriteRenderer.sortingLayerName = "UI"; // mesma layer do Canvas
+            spriteRenderer.sortingOrder = 1000;
         }
     }
 
@@ -50,13 +43,16 @@ public class ItemPickup : MonoBehaviour
             bool added = InventoryManager.Instance.AddItem(item);
             if (added)
             {
-                Destroy(gameObject); // removido com sucesso
+                Destroy(gameObject);
                 return;
             }
         }
 
-        // Se não foi solto sobre a UI, volta pro parent original
-        transform.SetParent(originalParent, true);
+        // Volta para ordenação original
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingOrder = originalSortingOrder;
+        }
     }
 
     private void Update()
@@ -70,7 +66,7 @@ public class ItemPickup : MonoBehaviour
     private Vector3 GetMouseWorldPos()
     {
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Mathf.Abs(mainCamera.transform.position.z); // distância da câmera ao objeto
+        mousePos.z = Mathf.Abs(mainCamera.transform.position.z);
         return mainCamera.ScreenToWorldPoint(mousePos);
     }
 }
