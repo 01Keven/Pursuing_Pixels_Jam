@@ -1,18 +1,36 @@
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance;
 
     public inventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
 
+    public Transform ItemContent;
+
+    public List<Item> Items = new List<Item>();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     int selectedSlot = -1;
 
-    // private void Start()
-    // {
-    //     ChangeSelectedSlot(1);
-    // }
+    public void ListItems()
+    {
+        foreach (var item in Items)
+        {
+            GameObject obj = Instantiate(inventoryItemPrefab, ItemContent);
+            var itemIcon = obj.transform.Find("ItemIcon").GetComponent<UnityEngine.UI.Image>();
+            itemIcon.sprite = item.icon;
+        }
+    }
 
     void ChangeSelectedSlot(int newValue)
     {
@@ -24,22 +42,30 @@ public class InventoryManager : MonoBehaviour
         selectedSlot = newValue;
     }
 
-    public bool AddItem(Item item)
+public bool AddItem(Item item)
+{
+    for (int i = 0; i < inventorySlots.Length; i++)
     {
+        inventorySlot slot = inventorySlots[i];
 
-
-        for (int i = 0; i < inventorySlots.Length; i++)
+        // Verifica se o slot já tem um ícone atribuído (já tem item)
+        Image iconImage = slot.transform.Find("ItemIcon").GetComponent<Image>();
+        if (iconImage != null && iconImage.sprite == null)
         {
-            inventorySlot slot = inventorySlots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (itemInSlot == null)
-            {
-                SpawnNewItem(item, slot);
-                return true;
-            }
+            // Slot vazio – atribui o item
+            iconImage.sprite = item.icon;
+
+            // Armazena o item, se quiser acesso futuro
+            slot.storedItem = item;
+
+            return true;
         }
-        return false;
     }
+
+    Debug.Log("Inventário cheio!");
+    return false;
+}
+
 
     void SpawnNewItem(Item item, inventorySlot slot)
     {

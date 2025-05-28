@@ -5,17 +5,28 @@ using UnityEngine.EventSystems;
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public Item item;
-    [HideInInspector] public Image image;
+    public Image image;
     [HideInInspector] public Transform parentAfterDrag;
-
-    // private void Start()
-    // {
-    //     Initialiseitem(item);
-    // }
 
     public void Initialiseitem(Item newItem)
     {
         item = newItem;
+
+        // Aqui pegamos a Image corretamente do filho "ItemIcon"
+        if (image == null)
+        {
+            Transform iconTransform = transform.Find("ItemIcon");
+            if (iconTransform != null)
+            {
+                image = iconTransform.GetComponent<Image>();
+            }
+            else
+            {
+                Debug.LogError("ItemIcon não encontrado como filho do InventoryItem!");
+                return;
+            }
+        }
+
         image.sprite = newItem.icon;
     }
 

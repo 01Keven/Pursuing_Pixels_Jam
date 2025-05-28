@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class inventorySlot : MonoBehaviour, IDropHandler
 {
+    public Item storedItem; // Guarda o item atual no slot (opcional)
     public Image image;
     public Color selectedColor, notSelectedColor;
 
