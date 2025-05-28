@@ -30,8 +30,12 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     {
         itemIcon.raycastTarget = false;
         parentAfterDrag = transform.parent;
-        transform.SetParent(transform.root); // Libera para ser arrastado por cima
+        transform.SetParent(transform.root);
+
+        // Mostra o ícone do item no mouse (pegando o mesmo ícone que este InventoryItem já mostra)
+        MouseItemDisplay.Instance.Show(itemIcon.sprite);
     }
+
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -43,6 +47,10 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         itemIcon.raycastTarget = true;
         transform.SetParent(parentAfterDrag);
         transform.localScale = Vector3.one;
-        transform.localPosition = Vector3.zero; // Alinha no slot
+        transform.localPosition = Vector3.zero;
+
+        // Esconde o ícone do mouse
+        MouseItemDisplay.Instance.Hide();
     }
+
 }
