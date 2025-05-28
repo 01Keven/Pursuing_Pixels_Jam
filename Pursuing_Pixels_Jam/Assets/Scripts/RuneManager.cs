@@ -23,30 +23,30 @@ public class RuneManager : MonoBehaviour
 
     public void UpdateAbilities()
     {
-        // Reseta todas as habilidades
-        playerAbilities.ResetAbilities();
+        
 
         //// Aplica efeitos das runas equipadas
-        //foreach (var rune in RuneInventory.Instance.equippedRunes)
-        //{
-        //    if (rune != null)
-        //    {
-        //        switch (rune.runeEffect)
-        //        {
-        //            case RuneEffects.Attack:
-        //                playerAbilities.EnableAttack();
-        //                break;
+        foreach (var rune in LucasInv.Instance.equippedRunes)
+        {
+            if (rune != null)
+            {
+                switch (rune.runeEffect)
+                {
+                    case RuneEffects.Attack:
+                        playerAbilities.EnableAttack();
+                        break;
 
-        //            case RuneEffects.Dash:
-        //                playerAbilities.EnableDash();
-        //                break;
+                    case RuneEffects.Dash:
+                        playerAbilities.EnableDash();
+                        break;
 
-        //            default:
-
-        //                break;
-        //                // Adicione outros efeitos conforme necessário
-        //        }
-        //    }
-        //}
+                    default:
+                        // Reseta todas as habilidades
+                        playerAbilities.ResetAbilities();
+                        break;
+                        // Adicione outros efeitos conforme necessário
+                }
+            }
+        }
     }
 }

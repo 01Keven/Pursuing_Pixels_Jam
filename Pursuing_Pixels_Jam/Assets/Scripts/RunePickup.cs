@@ -11,7 +11,7 @@ public class RunePickup : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             // Adiciona a runa ao inventário do jogador
-            //PlayerInventory.Instance.AddRune(rune);
+            LucasInv.Instance.AddRune(rune);
             // Destrói o objeto de pickup
             Destroy(gameObject);
         }

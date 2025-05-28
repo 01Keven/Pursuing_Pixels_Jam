@@ -16,4 +16,4 @@ MonoBehaviour:
   runeName: Dash
   runeDescription: 
   runeIcon: {fileID: 0}
-  runeEffect: 0
+  runeEffect: 1

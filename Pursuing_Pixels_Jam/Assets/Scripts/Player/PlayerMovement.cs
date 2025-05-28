@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
         GetInputs();
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && direction != Vector2.zero && !isDashing)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && direction != Vector2.zero && !isDashing  && PlayerAbilities.Instance.hasDash)
         {
             StartCoroutine(Dash());
         }
