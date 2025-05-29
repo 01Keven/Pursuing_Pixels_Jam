@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      OES Roxo_0: 8272559871931202574
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
