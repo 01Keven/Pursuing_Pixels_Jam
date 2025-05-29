@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject[] inventorySlots;
     public GameObject inventoryItemPrefab;
     public Transform ItemContent;
+    public GameObject worldItemPrefab; // arraste o prefab do item com SpriteRenderer aqui via inspector
     public List<Item> Items = new List<Item>(); // Inicialmente vazia
 
     private void Awake()
@@ -33,25 +34,25 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-public bool AddItem(Item item)
-{
-    for (int i = 0; i < inventorySlots.Length; i++)
+    public bool AddItem(Item item)
     {
-        Transform slot = inventorySlots[i].transform;
-
-        // Verifica se o slot já tem um item dentro (ícone, etc.)
-        if (slot.childCount == 0)
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
-            GameObject newItemGO = Instantiate(inventoryItemPrefab, slot);
-            InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
-            inventoryItem.Initialiseitem(item);
-            return true;
-        }
-    }
+            Transform slot = inventorySlots[i].transform;
 
-    Debug.Log("Inventário cheio!");
-    return false;
-}
+            // Verifica se o slot já tem um item dentro (ícone, etc.)
+            if (slot.childCount == 0)
+            {
+                GameObject newItemGO = Instantiate(inventoryItemPrefab, slot);
+                InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
+                inventoryItem.Initialiseitem(item);
+                return true;
+            }
+        }
+
+        Debug.Log("Inventário cheio!");
+        return false;
+    }
 
 
     void SpawnNewItem(Item item, inventorySlot slot)
@@ -73,4 +74,28 @@ public bool AddItem(Item item)
             }
         }
     }
+    
+
+
+    public void SpawnWorldItem(Item item, Vector3 position)
+    {
+        GameObject obj = Instantiate(worldItemPrefab, position, Quaternion.identity);
+
+        // Define a escala para 1 (tamanho original)
+        Vector3 originalScale = worldItemPrefab.transform.localScale;
+        obj.transform.localScale = originalScale;
+
+
+        ItemPickup pickup = obj.GetComponent<ItemPickup>();
+        if (pickup != null)
+        {
+            pickup.item = item;
+
+            SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+                renderer.sprite = item.icon;
+        }
+    }
+
+
 }

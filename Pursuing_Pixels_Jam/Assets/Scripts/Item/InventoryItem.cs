@@ -8,32 +8,49 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     [SerializeField] private Image itemIcon;
     [HideInInspector] public Transform parentAfterDrag;
 
+    private CanvasGroup canvasGroup;
+
     private void Awake()
     {
         if (itemIcon == null)
-        {
-            Transform iconTransform = transform.Find("ItemIcon");
-            if (iconTransform != null)
-                itemIcon = iconTransform.GetComponent<Image>();
-            else
-                itemIcon = GetComponent<Image>(); // fallback
-        }
+            itemIcon = GetComponent<Image>();
+
+        if (itemIcon == null)
+            Debug.LogError("InventoryItem: Image para itemIcon não encontrada!");
+
+        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
     }
+
 
     public void Initialiseitem(Item newItem)
     {
         item = newItem;
-        itemIcon.sprite = newItem.icon;
+
+        if (itemIcon != null)
+            itemIcon.sprite = newItem.icon;
+        else
+            Debug.LogWarning("InventoryItem: itemIcon está nulo em InitialiseItem.");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        itemIcon.raycastTarget = false;
         parentAfterDrag = transform.parent;
-        transform.SetParent(transform.root);
 
-        // Mostra o ícone do item no mouse (pegando o mesmo ícone que este InventoryItem já mostra)
-        MouseItemDisplay.Instance.Show(itemIcon.sprite);
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas != null)
+        {
+            transform.SetParent(canvas.transform);
+            transform.SetAsLastSibling();
+        }
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = false;
+        }
     }
 
 
@@ -44,13 +61,29 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        itemIcon.raycastTarget = true;
-        transform.SetParent(parentAfterDrag);
-        transform.localScale = Vector3.one;
-        transform.localPosition = Vector3.zero;
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            // Foi solto sobre UI
+            transform.SetParent(parentAfterDrag);
+            transform.localScale = Vector3.one;
+            transform.localPosition = Vector3.zero;
 
-        // Esconde o ícone do mouse
-        MouseItemDisplay.Instance.Hide();
+            if (canvasGroup != null)
+            {
+                canvasGroup.blocksRaycasts = true;
+                canvasGroup.alpha = 1f;
+                canvasGroup.interactable = true;
+            }
+        }
+        else
+        {
+            // FOI SOLTO FORA DA UI → spawn no mundo
+            Vector3 spawnPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            spawnPos.z = 0f;
+
+            InventoryManager.Instance.SpawnWorldItem(item, spawnPos);
+            Destroy(gameObject); // remove da UI
+        }
     }
 
 }

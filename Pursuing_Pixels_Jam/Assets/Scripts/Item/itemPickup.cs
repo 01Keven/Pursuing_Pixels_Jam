@@ -10,28 +10,59 @@ public class ItemPickup : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private int originalSortingOrder;
 
+    private void Awake()
+{
+    mainCamera = Camera.main;
+    spriteRenderer = GetComponent<SpriteRenderer>();
+}
+
     private void Start()
     {
-        mainCamera = Camera.main;
-        spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
             originalSortingOrder = spriteRenderer.sortingOrder;
         }
-    }
-
-    private void OnMouseDown()
-    {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
-        isDragging = true;
-        offset = transform.position - GetMouseWorldPos();
-
-        if (spriteRenderer != null)
+        else
         {
-            spriteRenderer.sortingLayerName = "UI"; // mesma layer do Canvas
-            spriteRenderer.sortingOrder = 1000;
+            Debug.LogError("SpriteRenderer está NULL no Start em: " + gameObject.name);
         }
     }
+
+private void OnMouseDown()
+{
+    if (EventSystem.current == null)
+    {
+        Debug.LogError("EventSystem.current está NULL!");
+        return;
+    }
+    
+    if (EventSystem.current.IsPointerOverGameObject())
+    {
+        Debug.Log("Pointer está sobre UI, ignorando clique.");
+        return;
+    }
+
+    if (mainCamera == null)
+    {
+        Debug.LogError("mainCamera está NULL!");
+        return;
+    }
+
+    isDragging = true;
+    offset = transform.position - GetMouseWorldPos();
+
+    if (spriteRenderer == null)
+    {
+        Debug.LogError("spriteRenderer está NULL em OnMouseDown! GameObject: " + gameObject.name);
+    }
+    else
+    {
+        spriteRenderer.sortingLayerName = "UI";
+        spriteRenderer.sortingOrder = 1000;
+    }
+}
+
+
 
     private void OnMouseUp()
     {
