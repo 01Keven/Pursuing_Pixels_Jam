@@ -29,6 +29,41 @@ public class PlayerAbilities : MonoBehaviour
         hasDash = false;
     }
 
+    public void SetAbilities(RuneData rune)
+    {
+        switch (rune.actionType)
+        {
+            case ActionType.Attack:
+                EnableAttack();
+                break;
+            case ActionType.Dash:
+                EnableDash();
+                break;
+            default:
+                ResetAbilities();
+                break;
+        }
+    }
+
+    public void UnSetAbilities(RuneData rune)
+    {
+        switch (rune.actionType)
+        {
+            case ActionType.Attack:
+                hasAttack = false;
+                // Aqui você pode adicionar lógica visual/UI para desabilitar o ataque
+                break;
+
+            case ActionType.Dash:
+                hasDash = false;
+                // Aqui você pode adicionar lógica visual/UI para desabilitar o dash
+                break;
+
+            default:
+                break;
+        }
+    }
+
     public void EnableAttack()
     {
         hasAttack = true;

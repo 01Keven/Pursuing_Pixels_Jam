@@ -40,9 +40,9 @@ public class BulletController : MonoBehaviour
         {
             //GameObject impact = Instantiate(impatcPrefab, transform.position, Quaternion.identity);
 
-            //var enemy = collision.gameObject.GetComponent<Enemy>();
+            var enemy = collision.gameObject.GetComponent<Enemy>();
 
-            //enemy.TakeDamage();
+            enemy.ApplyDamage(25);
             //enemy.ApplyKnockback(rb.velocity);
 
             //GameManager.Instance.StartCoroutine(GameManager.Instance.DestroyObject(impact, 0.51f));

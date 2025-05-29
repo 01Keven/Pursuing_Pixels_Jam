@@ -15,5 +15,5 @@ MonoBehaviour:
   runeID: 1
   runeName: Dash
   runeDescription: 
-  runeIcon: {fileID: 0}
-  runeEffect: 1
+  runeIcon: {fileID: -3217492986938864520, guid: cda354b2ab666584dbd2d7dc72d5c8a8, type: 3}
+  actionType: 1

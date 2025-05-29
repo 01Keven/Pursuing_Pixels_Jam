@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum RuneEffects
+public enum ActionType
 {
     Attack,
     Dash,
@@ -16,5 +16,5 @@ public class RuneData : ScriptableObject
     public string runeDescription;
     public Sprite runeIcon;
     [Header("Rune Information")]
-    public RuneEffects runeEffect;
+    public ActionType actionType;
 }

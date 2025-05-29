@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Unity.Collections.Unicode;
 
 public class RuneManager : MonoBehaviour
 {
@@ -24,29 +25,18 @@ public class RuneManager : MonoBehaviour
     public void UpdateAbilities()
     {
         
-
         //// Aplica efeitos das runas equipadas
         foreach (var rune in LucasInv.Instance.equippedRunes)
         {
             if (rune != null)
             {
-                switch (rune.runeEffect)
-                {
-                    case RuneEffects.Attack:
-                        playerAbilities.EnableAttack();
-                        break;
-
-                    case RuneEffects.Dash:
-                        playerAbilities.EnableDash();
-                        break;
-
-                    default:
-                        // Reseta todas as habilidades
-                        playerAbilities.ResetAbilities();
-                        break;
-                        // Adicione outros efeitos conforme necessário
-                }
+                playerAbilities.SetAbilities(rune);
             }
         }
+    }
+
+    public void RemoveRune(RuneData rune)
+    {
+        playerAbilities.UnSetAbilities(rune);
     }
 }
