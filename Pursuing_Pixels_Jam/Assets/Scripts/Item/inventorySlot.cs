@@ -28,7 +28,7 @@ public class inventorySlot : MonoBehaviour, IDropHandler
             image.color = notSelectedColor;
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData) // Método chamado quando um item é solto neste slot
     {
         InventoryItem draggedItem = eventData.pointerDrag.GetComponent<InventoryItem>();
 

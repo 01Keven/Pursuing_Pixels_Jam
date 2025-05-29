@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class ItemPickup : MonoBehaviour
 {
-    public Item item;
+    public RuneData item;
     private bool isDragging = false;
     private Vector3 offset;
     private Camera mainCamera;

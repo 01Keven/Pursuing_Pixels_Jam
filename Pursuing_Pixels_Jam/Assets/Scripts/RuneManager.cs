@@ -26,11 +26,15 @@ public class RuneManager : MonoBehaviour
     {
         
         //// Aplica efeitos das runas equipadas
-        foreach (var rune in LucasInv.Instance.equippedRunes)
+        foreach (var rune in InventoryManager.Instance.inventorySlots)
         {
             if (rune != null)
             {
-                playerAbilities.SetAbilities(rune);
+                if (rune.GetComponentInChildren<InventoryItem>()?.item)
+                {
+                    playerAbilities.SetAbilities(rune.GetComponentInChildren<InventoryItem>().item);
+                }
+                
             }
         }
     }

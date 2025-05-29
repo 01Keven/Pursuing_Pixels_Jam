@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-    public Item item;
+    public RuneData item;
     [SerializeField] private Image itemIcon;
     [HideInInspector] public Transform parentAfterDrag;
 
@@ -24,17 +24,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     }
 
 
-    public void Initialiseitem(Item newItem)
+    public void Initialiseitem(RuneData newItem) // Método para inicializar o item na UI
     {
         item = newItem;
 
         if (itemIcon != null)
-            itemIcon.sprite = newItem.icon;
+            itemIcon.sprite = newItem.runeIcon;
         else
             Debug.LogWarning("InventoryItem: itemIcon está nulo em InitialiseItem.");
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData) // Método chamado quando o arrasto começa
     {
         parentAfterDrag = transform.parent;
 
@@ -54,7 +54,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     }
 
 
-    public void OnDrag(PointerEventData eventData)
+    public void OnDrag(PointerEventData eventData) // Método chamado enquanto o item está sendo arrastado
     {
         transform.position = Input.mousePosition;
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8841251635955147662}
   - component: {fileID: 8479747740962687005}
   - component: {fileID: 7216755069478642086}
-  - component: {fileID: 7926408287342919658}
+  - component: {fileID: 1365626193769385471}
   m_Layer: 0
   m_Name: Rune
   m_TagString: Untagged
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: -554264653
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &7216755069478642086
@@ -125,7 +125,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &7926408287342919658
+--- !u!114 &1365626193769385471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5603708265238676929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e63fba6bf926bfe4491dfd018ab08a2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8855d451ae8626044be669e65588ad1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rune: {fileID: 0}
+  item: {fileID: 0}

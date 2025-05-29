@@ -34,10 +34,10 @@ public class PlayerAbilities : MonoBehaviour
         switch (rune.actionType)
         {
             case ActionType.Attack:
-                EnableAttack();
+                hasAttack = true;
                 break;
             case ActionType.Dash:
-                EnableDash();
+                hasDash = true;
                 break;
             default:
                 ResetAbilities();

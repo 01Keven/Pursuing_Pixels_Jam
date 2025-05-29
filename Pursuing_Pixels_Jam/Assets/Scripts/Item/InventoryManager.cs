@@ -10,7 +10,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryItemPrefab;
     public Transform ItemContent;
     public GameObject worldItemPrefab; // arraste o prefab do item com SpriteRenderer aqui via inspector
-    public List<Item> Items = new List<Item>(); // Inicialmente vazia
+    public List<RuneData> Items = new List<RuneData>(); // Inicialmente vazia
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public bool AddItem(Item item)
+    public bool AddItem(RuneData item)
     {
         for (int i = 0; i < inventorySlots.Length; i++)
         {
@@ -46,6 +46,7 @@ public class InventoryManager : MonoBehaviour
                 GameObject newItemGO = Instantiate(inventoryItemPrefab, slot);
                 InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
                 inventoryItem.Initialiseitem(item);
+                RuneManager.Instance.UpdateAbilities(); // Atualiza as habilidades do RuneManager após equipar a runa
                 return true;
             }
         }
@@ -55,7 +56,7 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    void SpawnNewItem(Item item, inventorySlot slot)
+    void SpawnNewItem(RuneData item, inventorySlot slot)
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
@@ -77,7 +78,7 @@ public class InventoryManager : MonoBehaviour
     
 
 
-    public void SpawnWorldItem(Item item, Vector3 position)
+    public void SpawnWorldItem(RuneData item, Vector3 position)
     {
         GameObject obj = Instantiate(worldItemPrefab, position, Quaternion.identity);
 
@@ -86,14 +87,20 @@ public class InventoryManager : MonoBehaviour
         obj.transform.localScale = originalScale;
 
 
-        ItemPickup pickup = obj.GetComponent<ItemPickup>();
+        ItemPickup pickup = obj.GetComponent<ItemPickup>(); // Obtém o componente ItemPickup do objeto instanciado
         if (pickup != null)
         {
             pickup.item = item;
 
             SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
             if (renderer != null)
-                renderer.sprite = item.icon;
+            {
+                renderer.sprite = item.runeIcon;
+                renderer.sortingLayerName = "Gameplay"; // Define a camada de ordenação para UI
+                renderer.sortingOrder = 0; // Define a ordem de renderização para que fique acima de outros objetos no mundo
+            }
+                
+                RuneManager.Instance.RemoveRune(item); // Remove a runa do RuneManager após spawnar no mundo
         }
     }
 
