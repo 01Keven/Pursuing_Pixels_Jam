@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+//Esse script é responsável por gerenciar o item do inventário, permitindo que ele seja arrastado e solto na UI ou no mundo do jogo.
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public RuneData item;
@@ -59,7 +60,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         transform.position = Input.mousePosition;
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData eventData) // Método chamado quando o arrasto termina
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
@@ -75,7 +76,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
                 canvasGroup.interactable = true;
             }
         }
-        else
+        else // Se não foi solto sobre UI, então é um spawn no mundo
         {
             // FOI SOLTO FORA DA UI → spawn no mundo
             Vector3 spawnPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

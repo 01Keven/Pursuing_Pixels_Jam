@@ -50,10 +50,10 @@ public class EnemyGrabItem : Enemy
 
     private void TryStealItem()
     {
-        if (lucasInv == null || lucasInv.equippedRunes[0] == null)
+        if (InventoryManager.Instance == null || InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.item == null) // Verifica se o inventário existe e se o primeiro slot tem um item equipado
             return;
         // Configura o item roubado
-        runeData = lucasInv.equippedRunes[0]; // Obtém a runa/item equipada no primeiro slot do inventário do jogador
+        runeData = InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.item; // Obtém a runa/item equipada no primeiro slot do inventário do jogador
 
         if (runeEnemyGameobject != null) 
         {
@@ -64,7 +64,8 @@ public class EnemyGrabItem : Enemy
 
         // Remove do jogador
         RuneManager.Instance?.RemoveRune(runeData); // Remove a runa do RuneManager
-        lucasInv.UnequipRune(0); // Desequipando a runa do primeiro slot do inventário do jogador
+        GameObject item = InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.gameObject; // Obtém o GameObject do item no inventário do jogador
+        Destroy(item); // Destrói o GameObject do item no inventário do jogador
 
         hasItem = true;
         Debug.Log("Item roubado do jogador!");
@@ -105,16 +106,18 @@ public class EnemyGrabItem : Enemy
     private void TakeItem()
     {
         // Método para pegar o item
-        if (lucasInv.equippedRunes[0] != null)
+        if (InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.item != null)
         {
-            runeData = lucasInv.equippedRunes[0];
+            runeData = InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.item;
 
             if (runeEnemyGameobject == null)
             {
                 runeEnemyGameobject = GameObject.Find("RuneEnemy"); // Encontra o GameObject da runa/item que o inimigo irá pegar
                 runeEnemyGameobject.GetComponent<SpriteRenderer>().sprite = runeData.runeIcon; // Obtém o sprite da runa/item e o icone da runa/item
 
+                
                 RuneManager.Instance.RemoveRune(runeData); // Remove a runa do RuneManager
+                //Lembrar de remover a runa do Inventory de Keven também
                 lucasInv.UnequipRune(0); // Desequipando a runa do primeiro slot
             }
 

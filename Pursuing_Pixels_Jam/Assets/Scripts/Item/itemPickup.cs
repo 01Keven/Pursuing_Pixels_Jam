@@ -21,6 +21,7 @@ public class ItemPickup : MonoBehaviour
         if (spriteRenderer != null)
         {
             originalSortingOrder = spriteRenderer.sortingOrder;
+            spriteRenderer.sprite = item.runeIcon; // Define o sprite do item
         }
         else
         {
