@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class EnemyGrabItem : Enemy
 {
-    [Header("EnemyGrabItem")]
-    LucasInv lucasInv; // Referência ao script de inventário do jogador
-    [SerializeField] RuneData runeData; // Referência aos dados da runa/item que o inimigo irá pegar
+    
+    [Header("EnemyGrabItem")][SerializeField] RuneData runeData; // Referência aos dados da runa/item que o inimigo irá pegar
     [SerializeField] GameObject runeEnemyGameobject; // Referência ao GameObject da runa/item que o inimigo irá pegar
     [SerializeField] private Transform mysticTree; // Referência atribuída no Inspector
 
@@ -15,7 +14,6 @@ public class EnemyGrabItem : Enemy
     protected override void Start()
     {
         base.Start();
-        lucasInv = LucasInv.Instance; // Encontra o script de inventário do jogador na cena
 
         mysticTree = GameObject.Find("MistycTree")?.transform; // Tenta encontrar o GameObject da árvore na cena e pega o transform
 
@@ -34,6 +32,15 @@ public class EnemyGrabItem : Enemy
             ChasePlayer();
         }
 
+        if (agent.velocity.x > 0) 
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false; // Mantém sprite do inimigo para a direita
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true; // Inverte o sprite do inimigo para a esquerda
+        }
+
     }
 
     private void ChasePlayer()
@@ -41,6 +48,12 @@ public class EnemyGrabItem : Enemy
         if (player == null) return;
 
         agent.SetDestination(player.transform.position);
+        if (agent.velocity.sqrMagnitude != 0)
+        {
+            anim.SetInteger("Move", 1); // Define o estado de animação para "Chase" (1)
+            anim.SetFloat("AxisX", agent.velocity.x); // Atualiza a velocidade da animação com base na velocidade do agente
+            anim.SetFloat("AxisY", agent.velocity.y); // Atualiza a velocidade da animação com base na velocidade do agente
+        }
 
         if (HasReachedDestination())
         {
@@ -118,7 +131,8 @@ public class EnemyGrabItem : Enemy
                 
                 RuneManager.Instance.RemoveRune(runeData); // Remove a runa do RuneManager
                 //Lembrar de remover a runa do Inventory de Keven também
-                lucasInv.UnequipRune(0); // Desequipando a runa do primeiro slot
+                GameObject item = InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.gameObject; // Obtém o GameObject do item no inventário do jogador
+                Destroy(item); // Destrói o GameObject do item no inventário do jogador
             }
 
             // Lógica para pegar o item, como coletar um item do chão ou interagir com um objeto
