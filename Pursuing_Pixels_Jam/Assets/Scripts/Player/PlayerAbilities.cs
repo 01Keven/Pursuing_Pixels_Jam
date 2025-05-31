@@ -5,6 +5,7 @@ public class PlayerAbilities : MonoBehaviour
     [Header("Ability Status")]
     public bool hasAttack = false;
     public bool hasDash = false;
+    public bool canMoveObjects = false;
 
     [Header("Ability Parameters")]
     public float AttackDamage = 2f;
@@ -29,51 +30,53 @@ public class PlayerAbilities : MonoBehaviour
         hasDash = false;
     }
 
-    public void SetAbilities(RuneData rune)
+public void SetAbilities(RuneData rune)
+{
+    switch (rune.actionType)
     {
-        switch (rune.actionType)
-        {
-            case ActionType.Attack:
-                hasAttack = true;
-                break;
-            case ActionType.Dash:
-                hasDash = true;
-                break;
-            default:
-                ResetAbilities();
-                break;
-        }
+        case ActionType.Attack:
+            hasAttack = true;
+            break;
+        case ActionType.Dash:
+            hasDash = true;
+            break;
+        case ActionType.Movable:
+            canMoveObjects = true;
+            break;
+        default:
+            break;
     }
+}
 
-    public void UnSetAbilities(RuneData rune)
+public void UnSetAbilities(RuneData rune)
+{
+    switch (rune.actionType)
     {
-        switch (rune.actionType)
-        {
-            case ActionType.Attack:
-                hasAttack = false;
-                // Aqui você pode adicionar lógica visual/UI para desabilitar o ataque
-                break;
-
-            case ActionType.Dash:
-                hasDash = false;
-                // Aqui você pode adicionar lógica visual/UI para desabilitar o dash
-                break;
-
-            default:
-                break;
-        }
+        case ActionType.Attack:
+            hasAttack = false;
+            break;
+        case ActionType.Dash:
+            hasDash = false;
+            break;
+        case ActionType.Movable:
+            canMoveObjects = false;
+            break;
+        default:
+            break;
     }
+}
+
 
     public void EnableAttack()
     {
         hasAttack = true;
-        // Aqui você pode adicionar lógica visual/UI
+        // Aqui vocï¿½ pode adicionar lï¿½gica visual/UI
     }
 
     public void EnableDash()
     {
         hasDash = true;
-        // Configuração inicial do dash
+        // Configuraï¿½ï¿½o inicial do dash
     }
 
     // Exemplo de uso no Update
@@ -84,8 +87,8 @@ public class PlayerAbilities : MonoBehaviour
 
     private void PerformDash()
     {
-        // Implementação do movimento do dash
-        //Vector2 dashDirection = /* lógica de direção */;
+        // Implementaï¿½ï¿½o do movimento do dash
+        //Vector2 dashDirection = /* lï¿½gica de direï¿½ï¿½o */;
         //GetComponent<Rigidbody2D>().AddForce(dashDirection * dashDistance, ForceMode2D.Impulse);
     }
 }
