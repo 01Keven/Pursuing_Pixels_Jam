@@ -11,6 +11,12 @@ public class PlayerAbilities : MonoBehaviour
     public float AttackDamage = 2f;
     public float dashDistance = 5f;
 
+    [Header("Movement")]
+    public float moveSpeed = 5f;
+    public float speedModifier = 1f;
+
+    // usar finalSpeed para mover o personagem
+
     public static PlayerAbilities Instance { get; private set; }
     private void Awake()
     {
@@ -24,47 +30,65 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
+    public void SetMovementModifier(float modifier)
+    {
+        speedModifier = modifier;
+    }
+
     public void ResetAbilities()
     {
         hasAttack = false;
         hasDash = false;
     }
 
-public void SetAbilities(RuneData rune)
-{
-    switch (rune.actionType)
+    public void SetAbilities(RuneData rune, SlotType slot)
     {
-        case ActionType.Attack:
-            hasAttack = true;
+        switch (rune.actionType)
+        {
+            case ActionType.Attack:
+                hasAttack = true;
+                break;
+            case ActionType.Dash:
+                hasDash = true;
+                break;
+            case ActionType.Movable:
+                canMoveObjects = true;
+                switch (slot)
+            {
+                case SlotType.Slot1:
+                    speedModifier = 1f; // normal
+                    Debug.Log("speed normal");
+                    break;
+                case SlotType.Slot2:
+                    speedModifier = 0.5f; // lento
+                    Debug.Log("speed lento");
+                    break;
+                case SlotType.Slot3:
+                    speedModifier = 1.2f; // mais rápido
+                    Debug.Log("speed rapido");
+                    break;
+            }
             break;
-        case ActionType.Dash:
-            hasDash = true;
-            break;
-        case ActionType.Movable:
-            canMoveObjects = true;
-            break;
-        default:
-            break;
+        }
     }
-}
 
-public void UnSetAbilities(RuneData rune)
-{
-    switch (rune.actionType)
+    public void UnSetAbilities(RuneData rune)
     {
-        case ActionType.Attack:
-            hasAttack = false;
-            break;
-        case ActionType.Dash:
-            hasDash = false;
-            break;
-        case ActionType.Movable:
-            canMoveObjects = false;
-            break;
-        default:
-            break;
+        switch (rune.actionType)
+        {
+            case ActionType.Attack:
+                hasAttack = false;
+                break;
+            case ActionType.Dash:
+                hasDash = false;
+                break;
+            case ActionType.Movable:
+                canMoveObjects = false;
+                break;
+            default:
+                break;
+        }
     }
-}
 
 
     public void EnableAttack()
@@ -82,7 +106,7 @@ public void UnSetAbilities(RuneData rune)
     // Exemplo de uso no Update
     private void Update()
     {
-        
+
     }
 
     private void PerformDash()
@@ -91,4 +115,6 @@ public void UnSetAbilities(RuneData rune)
         //Vector2 dashDirection = /* l�gica de dire��o */;
         //GetComponent<Rigidbody2D>().AddForce(dashDirection * dashDistance, ForceMode2D.Impulse);
     }
+ 
+
 }
