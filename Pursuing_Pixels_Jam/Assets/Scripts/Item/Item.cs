@@ -9,12 +9,11 @@ public class Item : ScriptableObject
     public int id;
     public string itemName;
     public Sprite icon;
-    public ActionType type;
-
+    public Action type;
 
 }
 
-public enum ActionType {
+public enum Action {
     RuneAttack,
     RuneDash
 }

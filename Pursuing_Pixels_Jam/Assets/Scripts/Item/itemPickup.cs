@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class ItemPickup : MonoBehaviour
 {
-    public Item item;
+    public RuneData item;
     private bool isDragging = false;
     private Vector3 offset;
     private Camera mainCamera;
@@ -21,6 +21,7 @@ public class ItemPickup : MonoBehaviour
         if (spriteRenderer != null)
         {
             originalSortingOrder = spriteRenderer.sortingOrder;
+            spriteRenderer.sprite = item.runeIcon; // Define o sprite do item
         }
         else
         {
