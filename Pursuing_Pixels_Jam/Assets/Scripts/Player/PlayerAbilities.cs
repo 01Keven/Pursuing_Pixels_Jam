@@ -43,6 +43,51 @@ public class PlayerAbilities : MonoBehaviour
 
     public void SetAbilities(RuneData rune, SlotType slot)
     {
+
+        switch (slot)
+        {
+            case SlotType.Default:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = true;
+                        break;
+                    case ActionType.Dash:
+                        hasDash = true;
+                        speedModifier = 1f; // normal
+                        break;
+                    case ActionType.Movable:
+                        canMoveObjects = true;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case SlotType.Multiply:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = true;
+                        break;
+                    case ActionType.Dash:
+                        hasDash = true;
+                        break;
+                    case ActionType.Movable:
+                        canMoveObjects = true;
+                        speedModifier = 0.5f; // lento
+                        Debug.Log("speed lento");
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case SlotType.Utilities:
+                break;
+            default:
+                break;
+        }
+
+
         switch (rune.actionType)
         {
             case ActionType.Attack:
@@ -55,15 +100,15 @@ public class PlayerAbilities : MonoBehaviour
                 canMoveObjects = true;
                 switch (slot)
             {
-                case SlotType.Slot1:
+                case SlotType.Default:
                     speedModifier = 1f; // normal
                     Debug.Log("speed normal");
                     break;
-                case SlotType.Slot2:
+                case SlotType.Multiply:
                     speedModifier = 0.5f; // lento
                     Debug.Log("speed lento");
                     break;
-                case SlotType.Slot3:
+                case SlotType.Utilities:
                     speedModifier = 1.2f; // mais rápido
                     Debug.Log("speed rapido");
                     break;
