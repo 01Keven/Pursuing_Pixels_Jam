@@ -46,6 +46,7 @@ public class InventoryManager : MonoBehaviour
                 GameObject newItemGO = Instantiate(inventoryItemPrefab, slot);
                 InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
                 inventoryItem.Initialiseitem(item);
+                newItemGO.GetComponent<InventoryItem>().slot = slot.GetComponent<inventorySlot>().slotType; // Define o tipo de slot baseado no item
                 RuneManager.Instance.UpdateAbilities(); // Atualiza as habilidades do RuneManager após equipar a runa
                 return true;
             }

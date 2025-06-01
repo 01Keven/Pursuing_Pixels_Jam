@@ -42,6 +42,7 @@ public class PlayerAbilities : MonoBehaviour
                         Debug.Log("Ataque Habilitado: Default" + hasAttack);
                         break;
                     case ActionType.Dash:
+                        Debug.Log("Dash Habilitado: Default" + hasDash);
                         hasDash = true;
                         break;
                     default:
@@ -57,6 +58,8 @@ public class PlayerAbilities : MonoBehaviour
                         Debug.Log("Ataque Habilitado: Multiply" + hasAttack);
                         break;
                     case ActionType.Dash:
+                        hasDash = true;
+                        Debug.Log("Dash Habilitado: Multiply" + hasDash);
                         break;
                     default:
                         break;
@@ -99,6 +102,7 @@ public class PlayerAbilities : MonoBehaviour
                         break;
                     case ActionType.Dash:
                         hasDash = true;
+                        Debug.Log("Dash Desabilitado: Default" + hasDash);
                         break;
                     default:
                         break;
@@ -113,6 +117,8 @@ public class PlayerAbilities : MonoBehaviour
                         Debug.Log("Ataque Desabilitado: Multiply" + hasAttack);
                         break;
                     case ActionType.Dash:
+                        hasDash = false;
+                        Debug.Log("Dash Desabilitado: Multiply" + hasDash);
                         break;
                     default:
                         break;
