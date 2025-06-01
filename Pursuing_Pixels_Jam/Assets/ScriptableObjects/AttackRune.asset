@@ -15,5 +15,5 @@ MonoBehaviour:
   runeID: 0
   runeName: Attack
   runeDescription: 
-  runeIcon: {fileID: 3341688034518015022, guid: cda354b2ab666584dbd2d7dc72d5c8a8, type: 3}
+  runeIcon: {fileID: 21300000, guid: 9b2cf7ea67a24a0449a4ad922216ecab, type: 3}
   actionType: 0
