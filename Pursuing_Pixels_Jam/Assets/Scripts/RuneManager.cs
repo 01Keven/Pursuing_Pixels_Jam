@@ -42,13 +42,9 @@ public void UpdateAbilities()
                 // Vamos tentar listar todos os filhos para ver seus nomes e componentes
                 foreach (Transform child in slot.transform)
                 {
-                    Debug.Log($"[UpdateAbilities] Filho de slot {i}: '{child.name}' - Components:");
-
-                    var comps = child.GetComponents<Component>();
-                    foreach(var c in comps)
-                    {
-                        Debug.Log($"    - {c.GetType().Name}");
-                    }
+                    var itemRune = rune.GetComponentInChildren<InventoryItem>().item;
+                    var slot = rune.GetComponent<inventorySlot>().slotType;
+                    playerAbilities.SetAbilities(itemRune, slot);
                 }
                 continue;
             }
@@ -121,9 +117,8 @@ public void UpdateAbilities()
         }
     }
 
-    public void RemoveRune(RuneData rune)
+    public void RemoveRune(RuneData rune, SlotType slot)
     {
-        playerAbilities.UnSetAbilities(rune);
-        Debug.Log($"[RemoveRune] Removeu efeitos da rune '{rune.name}'");
+        playerAbilities.UnSetAbilities(rune, slot);
     }
 }

@@ -9,7 +9,7 @@ public class inventorySlot : MonoBehaviour, IDropHandler
     public Color selectedColor, notSelectedColor;
 
     public SlotType slotType;
-
+    //public bool isEmpty => storedItem == null; // Propriedade para verificar se o slot est� vazio
     private void Awake()
     {
         if (image == null)

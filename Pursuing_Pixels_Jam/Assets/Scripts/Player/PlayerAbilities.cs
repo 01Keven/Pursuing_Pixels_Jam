@@ -43,94 +43,114 @@ public class PlayerAbilities : MonoBehaviour
 
     public void SetAbilities(RuneData rune, SlotType slot)
     {
-
         switch (slot)
         {
+
             case SlotType.Default:
                 switch (rune.actionType)
                 {
                     case ActionType.Attack:
                         hasAttack = true;
+                        Debug.Log("Ataque Habilitado: Default" + hasAttack);
                         break;
                     case ActionType.Dash:
+                        Debug.Log("Dash Habilitado: Default" + hasDash);
                         hasDash = true;
-                        speedModifier = 1f; // normal
-                        break;
-                    case ActionType.Movable:
-                        canMoveObjects = true;
                         break;
                     default:
                         break;
                 }
                 break;
+
             case SlotType.Multiply:
                 switch (rune.actionType)
                 {
                     case ActionType.Attack:
                         hasAttack = true;
+                        Debug.Log("Ataque Habilitado: Multiply" + hasAttack);
                         break;
                     case ActionType.Dash:
                         hasDash = true;
-                        break;
-                    case ActionType.Movable:
-                        canMoveObjects = true;
-                        speedModifier = 0.5f; // lento
-                        Debug.Log("speed lento");
+                        Debug.Log("Dash Habilitado: Multiply" + hasDash);
                         break;
                     default:
                         break;
                 }
                 break;
+
             case SlotType.Utilities:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = true;
+                        // Aqui voc� pode adicionar l�gica visual/UI para o ataque
+                        break;
+                    case ActionType.Dash:
+                        hasDash = true;
+                        // Aqui voc� pode adicionar l�gica visual/UI para o dash
+                        break;
+                    default:
+                        break;
+                }
                 break;
+
             default:
+                ResetAbilities();
                 break;
-        }
-
-
-        switch (rune.actionType)
-        {
-            case ActionType.Attack:
-                hasAttack = true;
-                break;
-            case ActionType.Dash:
-                hasDash = true;
-                break;
-            case ActionType.Movable:
-                canMoveObjects = true;
-                switch (slot)
-            {
-                case SlotType.Default:
-                    speedModifier = 1f; // normal
-                    Debug.Log("speed normal");
-                    break;
-                case SlotType.Multiply:
-                    speedModifier = 0.5f; // lento
-                    Debug.Log("speed lento");
-                    break;
-                case SlotType.Utilities:
-                    speedModifier = 1.2f; // mais rápido
-                    Debug.Log("speed rapido");
-                    break;
-            }
-            break;
         }
     }
 
-    public void UnSetAbilities(RuneData rune)
+    public void UnSetAbilities(RuneData rune, SlotType slot)
     {
-        switch (rune.actionType)
+        switch (slot)
         {
-            case ActionType.Attack:
-                hasAttack = false;
+
+            case SlotType.Default:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = false;
+                        Debug.Log("Ataque Desabilitado: Default" + hasAttack);
+                        break;
+                    case ActionType.Dash:
+                        hasDash = true;
+                        Debug.Log("Dash Desabilitado: Default" + hasDash);
+                        break;
+                    default:
+                        break;
+                }
                 break;
-            case ActionType.Dash:
-                hasDash = false;
+
+            case SlotType.Multiply:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = false;
+                        Debug.Log("Ataque Desabilitado: Multiply" + hasAttack);
+                        break;
+                    case ActionType.Dash:
+                        hasDash = false;
+                        Debug.Log("Dash Desabilitado: Multiply" + hasDash);
+                        break;
+                    default:
+                        break;
+                }
                 break;
-            case ActionType.Movable:
-                canMoveObjects = false;
-                break;
-            default:
+
+            case SlotType.Utilities:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = true;
+                        // Aqui voc� pode adicionar l�gica visual/UI para o ataque
+                        break;
+                    case ActionType.Dash:
+                        hasDash = true;
+                        // Aqui voc� pode adicionar l�gica visual/UI para o dash
+                        break;
+                    default:
+                        break;
+                }
                 break;
         }
     }

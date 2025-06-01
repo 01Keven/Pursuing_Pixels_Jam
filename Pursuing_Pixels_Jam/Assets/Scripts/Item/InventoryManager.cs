@@ -46,6 +46,7 @@ public class InventoryManager : MonoBehaviour
                 GameObject newItemGO = Instantiate(inventoryItemPrefab, slot);
                 InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
                 inventoryItem.Initialiseitem(item);
+                newItemGO.GetComponent<InventoryItem>().slot = slot.GetComponent<inventorySlot>().slotType; // Define o tipo de slot baseado no item
                 RuneManager.Instance.UpdateAbilities(); // Atualiza as habilidades do RuneManager após equipar a runa
                 return true;
             }
@@ -78,7 +79,7 @@ public class InventoryManager : MonoBehaviour
     
 
 
-    public void SpawnWorldItem(RuneData item, Vector3 position)
+    public void SpawnWorldItem(RuneData item, Vector3 position, SlotType slot)
     {
         GameObject obj = Instantiate(worldItemPrefab, position, Quaternion.identity);
 
@@ -100,7 +101,7 @@ public class InventoryManager : MonoBehaviour
                 renderer.sortingOrder = 0; // Define a ordem de renderização para que fique acima de outros objetos no mundo
             }
                 
-                RuneManager.Instance.RemoveRune(item); // Remove a runa do RuneManager após spawnar no mundo
+                RuneManager.Instance.RemoveRune(item, slot); // Remove a runa do RuneManager após spawnar no mundo
         }
     }
 

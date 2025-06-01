@@ -10,6 +10,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     [HideInInspector] public Transform parentAfterDrag;
 
     private CanvasGroup canvasGroup;
+    public SlotType slot;
 
     private void Awake()
     {
@@ -22,6 +23,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
+    }
+
+    private void Start()
+    {
+        
     }
 
 
@@ -79,11 +85,19 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         else // Se não foi solto sobre UI, então é um spawn no mundo
         {
             // FOI SOLTO FORA DA UI → spawn no mundo
+            
             Vector3 spawnPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             spawnPos.z = 0f;
 
-            InventoryManager.Instance.SpawnWorldItem(item, spawnPos);
-            Destroy(gameObject); // remove da UI
+            if (gameObject.GetComponentInParent<inventorySlot>() != null)
+            {
+               slot  = gameObject.GetComponentInParent<inventorySlot>().slotType;
+            }
+            Debug.Log(slot);
+
+            InventoryManager.Instance.SpawnWorldItem(item, spawnPos, slot);
+
+            Destroy(gameObject, 0.1f); // remove da UI
         }
     }
 
