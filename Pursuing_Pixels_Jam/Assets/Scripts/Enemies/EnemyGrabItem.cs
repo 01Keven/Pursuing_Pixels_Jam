@@ -4,7 +4,9 @@ using UnityEngine;
 public class EnemyGrabItem : Enemy
 {
     
-    [Header("EnemyGrabItem")][SerializeField] RuneData runeData; // Referência aos dados da runa/item que o inimigo irá pegar
+    [Header("EnemyGrabItem")]
+    [SerializeField] RuneData runeData; // Referência aos dados da runa/item que o inimigo irá pegar
+    [SerializeField] SlotType slotType; // Tipo de slot onde a runa/item está equipada
     [SerializeField] GameObject runeEnemyGameobject; // Referência ao GameObject da runa/item que o inimigo irá pegar
     [SerializeField] private Transform mysticTree; // Referência atribuída no Inspector
 
@@ -76,6 +78,7 @@ public class EnemyGrabItem : Enemy
             return;
         // Configura o item roubado
         runeData = InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.item; // Obtém a runa/item equipada no primeiro slot do inventário do jogador
+        slotType = InventoryManager.Instance.inventorySlots[2].GetComponent<inventorySlot>().slotType; // Obtém o tipo de slot onde a runa/item está equipada
 
         if (runeEnemyGameobject != null) 
         {
@@ -85,7 +88,7 @@ public class EnemyGrabItem : Enemy
         }
 
         // Remove do jogador
-        RuneManager.Instance?.RemoveRune(runeData); // Remove a runa do RuneManager
+        RuneManager.Instance?.RemoveRune(runeData, slotType); // Remove a runa do RuneManager
         GameObject item = InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.gameObject; // Obtém o GameObject do item no inventário do jogador
         Destroy(item); // Destrói o GameObject do item no inventário do jogador
 
@@ -133,14 +136,14 @@ public class EnemyGrabItem : Enemy
         if (InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.item != null)
         {
             runeData = InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.item;
-
+            slotType = InventoryManager.Instance.inventorySlots[2].GetComponent<inventorySlot>().slotType; // Obtém o tipo de slot onde a runa/item está equipada
             if (runeEnemyGameobject == null)
             {
                 runeEnemyGameobject = GameObject.Find("RuneEnemy"); // Encontra o GameObject da runa/item que o inimigo irá pegar
                 runeEnemyGameobject.GetComponent<SpriteRenderer>().sprite = runeData.runeIcon; // Obtém o sprite da runa/item e o icone da runa/item
 
                 
-                RuneManager.Instance.RemoveRune(runeData); // Remove a runa do RuneManager
+                RuneManager.Instance.RemoveRune(runeData, slotType); // Remove a runa do RuneManager
                 //Lembrar de remover a runa do Inventory de Keven também
                 GameObject item = InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.gameObject; // Obtém o GameObject do item no inventário do jogador
                 Destroy(item); // Destrói o GameObject do item no inventário do jogador

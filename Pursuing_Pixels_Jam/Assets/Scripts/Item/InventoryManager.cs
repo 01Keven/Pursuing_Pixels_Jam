@@ -78,7 +78,7 @@ public class InventoryManager : MonoBehaviour
     
 
 
-    public void SpawnWorldItem(RuneData item, Vector3 position)
+    public void SpawnWorldItem(RuneData item, Vector3 position, SlotType slot)
     {
         GameObject obj = Instantiate(worldItemPrefab, position, Quaternion.identity);
 
@@ -100,7 +100,7 @@ public class InventoryManager : MonoBehaviour
                 renderer.sortingOrder = 0; // Define a ordem de renderização para que fique acima de outros objetos no mundo
             }
                 
-                RuneManager.Instance.RemoveRune(item); // Remove a runa do RuneManager após spawnar no mundo
+                RuneManager.Instance.RemoveRune(item, slot); // Remove a runa do RuneManager após spawnar no mundo
         }
     }
 

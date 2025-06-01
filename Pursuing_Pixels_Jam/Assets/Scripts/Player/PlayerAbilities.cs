@@ -29,37 +29,110 @@ public class PlayerAbilities : MonoBehaviour
         hasDash = false;
     }
 
-    public void SetAbilities(RuneData rune)
+    public void SetAbilities(RuneData rune, SlotType slot)
     {
-        switch (rune.actionType)
+        switch (slot)
         {
-            case ActionType.Attack:
-                hasAttack = true;
+
+            case SlotType.Default:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = true;
+                        Debug.Log("Ataque Habilitado: Default" + hasAttack);
+                        break;
+                    case ActionType.Dash:
+                        hasDash = true;
+                        break;
+                    default:
+                        break;
+                }
                 break;
-            case ActionType.Dash:
-                hasDash = true;
+
+            case SlotType.Multiply:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = true;
+                        Debug.Log("Ataque Habilitado: Multiply" + hasAttack);
+                        break;
+                    case ActionType.Dash:
+                        break;
+                    default:
+                        break;
+                }
                 break;
+
+            case SlotType.Utilities:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = true;
+                        // Aqui você pode adicionar lógica visual/UI para o ataque
+                        break;
+                    case ActionType.Dash:
+                        hasDash = true;
+                        // Aqui você pode adicionar lógica visual/UI para o dash
+                        break;
+                    default:
+                        break;
+                }
+                break;
+
             default:
                 ResetAbilities();
                 break;
         }
     }
 
-    public void UnSetAbilities(RuneData rune)
+    public void UnSetAbilities(RuneData rune, SlotType slot)
     {
-        switch (rune.actionType)
+        switch (slot)
         {
-            case ActionType.Attack:
-                hasAttack = false;
-                // Aqui você pode adicionar lógica visual/UI para desabilitar o ataque
+
+            case SlotType.Default:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = false;
+                        Debug.Log("Ataque Desabilitado: Default" + hasAttack);
+                        break;
+                    case ActionType.Dash:
+                        hasDash = true;
+                        break;
+                    default:
+                        break;
+                }
                 break;
 
-            case ActionType.Dash:
-                hasDash = false;
-                // Aqui você pode adicionar lógica visual/UI para desabilitar o dash
+            case SlotType.Multiply:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = false;
+                        Debug.Log("Ataque Desabilitado: Multiply" + hasAttack);
+                        break;
+                    case ActionType.Dash:
+                        break;
+                    default:
+                        break;
+                }
                 break;
 
-            default:
+            case SlotType.Utilities:
+                switch (rune.actionType)
+                {
+                    case ActionType.Attack:
+                        hasAttack = true;
+                        // Aqui você pode adicionar lógica visual/UI para o ataque
+                        break;
+                    case ActionType.Dash:
+                        hasDash = true;
+                        // Aqui você pode adicionar lógica visual/UI para o dash
+                        break;
+                    default:
+                        break;
+                }
                 break;
         }
     }

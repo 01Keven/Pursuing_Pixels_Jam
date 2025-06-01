@@ -82,7 +82,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
             Vector3 spawnPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             spawnPos.z = 0f;
 
-            InventoryManager.Instance.SpawnWorldItem(item, spawnPos);
+            InventoryManager.Instance.SpawnWorldItem(item, spawnPos, gameObject.GetComponentInParent<inventorySlot>().slotType);
             Destroy(gameObject); // remove da UI
         }
     }

@@ -32,15 +32,15 @@ public class RuneManager : MonoBehaviour
             {
                 if (rune.GetComponentInChildren<InventoryItem>()?.item)
                 {
-                    playerAbilities.SetAbilities(rune.GetComponentInChildren<InventoryItem>().item);
+                    playerAbilities.SetAbilities(rune.GetComponentInChildren<InventoryItem>().item, rune.GetComponent<inventorySlot>().slotType);
                 }
                 
             }
         }
     }
 
-    public void RemoveRune(RuneData rune)
+    public void RemoveRune(RuneData rune, SlotType slot)
     {
-        playerAbilities.UnSetAbilities(rune);
+        playerAbilities.UnSetAbilities(rune, slot);
     }
 }
