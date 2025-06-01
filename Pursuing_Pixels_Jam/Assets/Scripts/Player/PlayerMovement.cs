@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dashCooldown = 1f;
     TrailRenderer tr;
 
+    private float currentSpeed;
     Rigidbody2D rb;
     Vector2 direction;
     // Start is called before the first frame update
@@ -21,12 +22,22 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         tr = GetComponent<TrailRenderer>();
+        currentSpeed = speed;
     }
+
+
+
+
+    public void ResetSpeed()
+    {
+        currentSpeed = speed;
+    }
+
 
     private void FixedUpdate()
     {
         if (isDashing)
-            return; // Se estiver dashing, não processa mais nada
+            return; // Se estiver dashing, nï¿½o processa mais nada
 
         Move();
     }
@@ -35,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (isDashing)
-            return; // Se estiver dashing, não processa mais nada
+            return; // Se estiver dashing, nï¿½o processa mais nada
 
         GetInputs();
 
@@ -49,7 +60,10 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
 
-        rb.linearVelocity = direction * speed;
+        float finalSpeed = speed * PlayerAbilities.Instance.speedModifier;
+        rb.linearVelocity = direction * finalSpeed;
+
+        
 
     }
 
@@ -63,11 +77,11 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = dashDirection; // Aplica a velocidade do dash
         tr.emitting = true; // Ativa o TrailRenderer durante o dash
         yield return new WaitForSeconds(dashDuration); // Espera o tempo do dash
-        tr.emitting = false; // Desativa o TrailRenderer após o dash
+        tr.emitting = false; // Desativa o TrailRenderer apï¿½s o dash
         rb.gravityScale = originalGravityScale; // Restaura a gravidade 
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown); // Espera o tempo do dash
-        canDash = true; // Permite outro dash após o cooldown
+        canDash = true; // Permite outro dash apï¿½s o cooldown
     }
 
     public void addSpeed(float amount)

@@ -8,6 +8,8 @@ public class inventorySlot : MonoBehaviour, IDropHandler
     public Image image;
     public Color selectedColor, notSelectedColor;
 
+    public SlotType slotType;
+
     private void Awake()
     {
         if (image == null)
@@ -28,7 +30,7 @@ public class inventorySlot : MonoBehaviour, IDropHandler
             image.color = notSelectedColor;
     }
 
-    public void OnDrop(PointerEventData eventData) // Método chamado quando um item é solto neste slot
+    public void OnDrop(PointerEventData eventData) // Mï¿½todo chamado quando um item ï¿½ solto neste slot
     {
         InventoryItem draggedItem = eventData.pointerDrag.GetComponent<InventoryItem>();
 

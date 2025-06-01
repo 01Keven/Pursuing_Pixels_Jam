@@ -4,6 +4,8 @@ public enum ActionType
 {
     Attack,
     Dash,
+    Movable
+
 }
 
 
