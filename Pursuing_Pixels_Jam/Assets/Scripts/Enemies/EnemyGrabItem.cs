@@ -14,7 +14,7 @@ public class EnemyGrabItem : Enemy
     protected override void Start()
     {
         base.Start();
-
+        
         mysticTree = GameObject.Find("MistycTree")?.transform; // Tenta encontrar o GameObject da árvore na cena e pega o transform
 
     }
@@ -22,6 +22,17 @@ public class EnemyGrabItem : Enemy
     // Update is called once per frame
     protected override void Update()
     {
+        if (isDeath || !agent.enabled) return; // Dupla verificação
+        base.Update(); // Chama o método Update da classe base Enemy
+
+        if (agent.velocity.x > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false; // Mantém sprite do inimigo para a direita
+        }
+        else if (agent.velocity.x < 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true; // Inverte o sprite do inimigo para a esquerda
+        }
 
         if (hasItem)
         {
@@ -32,14 +43,18 @@ public class EnemyGrabItem : Enemy
             ChasePlayer();
         }
 
-        if (agent.velocity.x > 0) 
+        if (agent.velocity.sqrMagnitude != 0)
         {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false; // Mantém sprite do inimigo para a direita
+            anim.SetInteger("Move", 1); // Define o estado de animação para "Chase" (1)
+            anim.SetFloat("AxisX", agent.velocity.x); // Atualiza a velocidade da animação com base na velocidade do agente
+            anim.SetFloat("AxisY", agent.velocity.y); // Atualiza a velocidade da animação com base na velocidade do agente
         }
         else
         {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true; // Inverte o sprite do inimigo para a esquerda
+            anim.SetInteger("Move", 0); // Define o estado de animação para "Idle" (0)
         }
+
+        
 
     }
 
@@ -48,12 +63,6 @@ public class EnemyGrabItem : Enemy
         if (player == null) return;
 
         agent.SetDestination(player.transform.position);
-        if (agent.velocity.sqrMagnitude != 0)
-        {
-            anim.SetInteger("Move", 1); // Define o estado de animação para "Chase" (1)
-            anim.SetFloat("AxisX", agent.velocity.x); // Atualiza a velocidade da animação com base na velocidade do agente
-            anim.SetFloat("AxisY", agent.velocity.y); // Atualiza a velocidade da animação com base na velocidade do agente
-        }
 
         if (HasReachedDestination())
         {
@@ -63,10 +72,10 @@ public class EnemyGrabItem : Enemy
 
     private void TryStealItem()
     {
-        if (InventoryManager.Instance == null || InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.item == null) // Verifica se o inventário existe e se o primeiro slot tem um item equipado
+        if (InventoryManager.Instance == null || InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.item == null) // Verifica se o inventário existe e se o primeiro slot tem um item equipado
             return;
         // Configura o item roubado
-        runeData = InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.item; // Obtém a runa/item equipada no primeiro slot do inventário do jogador
+        runeData = InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.item; // Obtém a runa/item equipada no primeiro slot do inventário do jogador
 
         if (runeEnemyGameobject != null) 
         {
@@ -77,10 +86,11 @@ public class EnemyGrabItem : Enemy
 
         // Remove do jogador
         RuneManager.Instance?.RemoveRune(runeData); // Remove a runa do RuneManager
-        GameObject item = InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.gameObject; // Obtém o GameObject do item no inventário do jogador
+        GameObject item = InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.gameObject; // Obtém o GameObject do item no inventário do jogador
         Destroy(item); // Destrói o GameObject do item no inventário do jogador
 
         hasItem = true;
+        anim.SetBool("HasItem", true); // Define o estado de animação para "HasItem" (true)
         Debug.Log("Item roubado do jogador!");
     }
 
@@ -99,6 +109,7 @@ public class EnemyGrabItem : Enemy
         //Lógica para entregar o item à árvore mística
         runeData = null; // Reseta a runa/item após entregar
         hasItem = false; // Reseta o estado de ter o item
+        anim.SetBool("HasItem", false); // Reseta o estado de animação para "HasItem" (false)
 
         if (runeEnemyGameobject != null) // Verifica se o GameObject da runa/item existe antes de tentar acessá-lo
         {
@@ -119,9 +130,9 @@ public class EnemyGrabItem : Enemy
     private void TakeItem()
     {
         // Método para pegar o item
-        if (InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.item != null)
+        if (InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.item != null)
         {
-            runeData = InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.item;
+            runeData = InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.item;
 
             if (runeEnemyGameobject == null)
             {
@@ -131,7 +142,7 @@ public class EnemyGrabItem : Enemy
                 
                 RuneManager.Instance.RemoveRune(runeData); // Remove a runa do RuneManager
                 //Lembrar de remover a runa do Inventory de Keven também
-                GameObject item = InventoryManager.Instance.inventorySlots[0].GetComponentInChildren<InventoryItem>()?.gameObject; // Obtém o GameObject do item no inventário do jogador
+                GameObject item = InventoryManager.Instance.inventorySlots[2].GetComponentInChildren<InventoryItem>()?.gameObject; // Obtém o GameObject do item no inventário do jogador
                 Destroy(item); // Destrói o GameObject do item no inventário do jogador
             }
 

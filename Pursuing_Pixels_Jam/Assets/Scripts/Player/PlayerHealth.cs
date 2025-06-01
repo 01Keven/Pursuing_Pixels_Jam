@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] float maxHealth = 100f; // saúde máxima do jogador
-    float health = 100f; // saúde inicial do jogador
+    [SerializeField] float health = 100f; // saúde inicial do jogador
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

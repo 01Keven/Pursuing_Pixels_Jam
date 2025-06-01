@@ -12,5 +12,11 @@ public class Utils : MonoBehaviour
         return vec;
     }
 
+    public static bool IsAnimationDone(Animator animation, int layerIndex, string animationName)
+    {
+        var state = animation.GetCurrentAnimatorStateInfo(layerIndex);
+        return state.IsName(animationName) && state.normalizedTime >= 1.0f;
+    }
+
 
 }

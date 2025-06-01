@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,15 +8,24 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected int health = 100; // Exemplo de variável de saúde do inimigo
     [SerializeField] protected int damage = 10; // Exemplo de variável de dano do inimigo
     [SerializeField] protected float speed = 5f; // Exemplo de variável de velocidade do inimigo
+    [SerializeField] protected bool isDeath = false; // Distância de ataque do inimigo
 
     [Header("Referências")]
     protected Transform target; // Referência ao alvo que o inimigo deve seguir
-    protected Animator anim; // Referência ao Animator do inimigo
+    [SerializeField] protected Animator anim; // Referência ao Animator do inimigo
     protected Rigidbody2D rb; // Referência ao Rigidbody2D do inimigo
 
     [Header("EnemyMovement")]
     protected NavMeshAgent agent; // Referência ao NavMeshAgent para movimentação baseada em navegação
     protected PlayerHealth player; // Referência ao script de saúde do jogador
+
+    [Header("AttackSystem")]
+    [SerializeField] protected float attackColdownTime = 1f; // Tempo de recarga entre ataques
+    [SerializeField] protected float attackTimeCount;
+    Transform attackPoint; // Ponto de ataque do inimigo, onde o ataque será aplicado
+
+
+
 
 
     // Start é chamado antes do primeiro frame update
@@ -37,6 +47,8 @@ public class Enemy : MonoBehaviour
     // Update é chamado uma vez por frame
     protected virtual void Update()
     {
+        if(isDeath)
+            return; // Se o inimigo estiver morto, não executa mais nada
 
 
         //agent.SetDestination(player.transform.position);
@@ -53,7 +65,10 @@ public class Enemy : MonoBehaviour
     }
 
 
-    
+    protected virtual void AttackPlayer()
+    {   
+
+    }
 
     // Método para aplicar dano ao inimigo
     public virtual void ApplyDamage(int amount)
@@ -86,8 +101,18 @@ public class Enemy : MonoBehaviour
     // Método para lidar com a morte do inimigo
     protected virtual void Die()
     {
+        if (isDeath) return; // Evita execução múltipla
+
+        agent.isStopped = true;
+        agent.enabled = false;
+
+        var collider = GetComponent<Collider2D>();
+        if (collider != null) collider.enabled = false;
+
         // Aqui você pode adicionar lógica para a morte do inimigo, como animações, efeitos sonoros, etc.
-        Destroy(gameObject); // Exemplo simples de destruição do inimigo
+        anim.SetTrigger("Die"); // Aciona a animação de morte
+        isDeath = true; // Marca o inimigo como morto
+        Destroy(gameObject, 1.5f); // Destroi o inimigo após 1.5 segundos para permitir a animação de morte
     }
 
 }

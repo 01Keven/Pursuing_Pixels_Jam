@@ -1,31 +1,40 @@
 fileFormatVersion: 2
-guid: dbd61e563d886704dacd7b827d03d10a
+guid: 0774278c4f30727418edc8410170eb2d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1941430758539350241
-    second: Walk-Sheet_0
+      213: -7129287503759736067
+    second: Morrendo-Sheet_0
   - first:
-      213: -5361519809649057331
-    second: Walk-Sheet_1
+      213: -3110300910912505381
+    second: Morrendo-Sheet_1
   - first:
-      213: 490090555724886754
-    second: Walk-Sheet_2
+      213: -2279626622574464255
+    second: Morrendo-Sheet_2
   - first:
-      213: -8221045256974437623
-    second: Walk-Sheet_3
+      213: 4584389147026659146
+    second: Morrendo-Sheet_3
   - first:
-      213: 3902831484900880626
-    second: Walk-Sheet_4
+      213: -6279988040118311754
+    second: Morrendo-Sheet_4
   - first:
-      213: -2640520086256871283
-    second: Walk-Sheet_5
+      213: 6445283989206146934
+    second: Morrendo-Sheet_5
   - first:
-      213: 2354519191828074405
-    second: Walk-Sheet_6
+      213: -4270263038563297348
+    second: Morrendo-Sheet_6
   - first:
-      213: -2208637658950832911
-    second: Walk-Sheet_7
+      213: 7515785308221849728
+    second: Morrendo-Sheet_7
+  - first:
+      213: 3344903799579859327
+    second: Morrendo-Sheet_8
+  - first:
+      213: 6113198468587178845
+    second: Morrendo-Sheet_9
+  - first:
+      213: -5372550820543488138
+    second: Morrendo-Sheet_10
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -134,7 +143,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk-Sheet_0
+      name: Morrendo-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -147,16 +156,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 5e572a8afc4cb8143bd0dcb2cd08bc93
-      internalID: -1884202179
+      spriteID: df205c4b9ceaf0d90800000000000000
+      internalID: -7129287503759736067
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk-Sheet_1
+      name: Morrendo-Sheet_1
       rect:
         serializedVersion: 2
         x: 64
@@ -169,16 +178,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: f7f3fa031445be749bb0310efbbe05f4
-      internalID: 668192296
+      spriteID: bd97c74fccdf5d4d0800000000000000
+      internalID: -3110300910912505381
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk-Sheet_2
+      name: Morrendo-Sheet_2
       rect:
         serializedVersion: 2
         x: 128
@@ -191,16 +200,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 255ca55cfe937b748891f4f70f2c56f5
-      internalID: -1003154939
+      spriteID: 103fcec2aa32d50e0800000000000000
+      internalID: -2279626622574464255
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk-Sheet_3
+      name: Morrendo-Sheet_3
       rect:
         serializedVersion: 2
         x: 192
@@ -213,16 +222,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: c9bd0a436dfbb4942bd0e02cf9825dc4
-      internalID: -29144865
+      spriteID: a471eacd3a50f9f30800000000000000
+      internalID: 4584389147026659146
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk-Sheet_4
+      name: Morrendo-Sheet_4
       rect:
         serializedVersion: 2
         x: 256
@@ -235,16 +244,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: caea2fe8d09d8b845b40d8bc1987e4f4
-      internalID: 1679422905
+      spriteID: 6b4eb0b762009d8a0800000000000000
+      internalID: -6279988040118311754
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk-Sheet_5
+      name: Morrendo-Sheet_5
       rect:
         serializedVersion: 2
         x: 320
@@ -257,16 +266,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 9fbc0839b9e0c744fa07d73568c3c109
-      internalID: -1832960397
+      spriteID: 67f152db3af327950800000000000000
+      internalID: 6445283989206146934
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk-Sheet_6
+      name: Morrendo-Sheet_6
       rect:
         serializedVersion: 2
         x: 384
@@ -279,16 +288,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 503d6cc4f7284d1409df73a0f30c9937
-      internalID: -162457983
+      spriteID: cb754f8246afcb4c0800000000000000
+      internalID: -4270263038563297348
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk-Sheet_7
+      name: Morrendo-Sheet_7
       rect:
         serializedVersion: 2
         x: 448
@@ -301,10 +310,76 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 641286ef96bcbbe4c8e9f79c62065525
-      internalID: 765243885
+      spriteID: 080c9a0eaee6d4860800000000000000
+      internalID: 7515785308221849728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Morrendo-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f79dfcd984c7b6e20800000000000000
+      internalID: 3344903799579859327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Morrendo-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5bc9993e9176d450800000000000000
+      internalID: 6113198468587178845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Morrendo-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67f95c36e7dd075b0800000000000000
+      internalID: -5372550820543488138
       vertices: []
       indices: 
       edges: []
@@ -313,7 +388,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 25410bee2b132cd409c8afae58ff7155
+    spriteID: c26ea4b42da9c96469f7ae3580f8da12
     internalID: 0
     vertices: []
     indices: 
@@ -325,14 +400,17 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Walk-Sheet_0: -1884202179
-      Walk-Sheet_1: 668192296
-      Walk-Sheet_2: -1003154939
-      Walk-Sheet_3: -29144865
-      Walk-Sheet_4: 1679422905
-      Walk-Sheet_5: -1832960397
-      Walk-Sheet_6: -162457983
-      Walk-Sheet_7: 765243885
+      Morrendo-Sheet_0: -7129287503759736067
+      Morrendo-Sheet_1: -3110300910912505381
+      Morrendo-Sheet_10: -5372550820543488138
+      Morrendo-Sheet_2: -2279626622574464255
+      Morrendo-Sheet_3: 4584389147026659146
+      Morrendo-Sheet_4: -6279988040118311754
+      Morrendo-Sheet_5: 6445283989206146934
+      Morrendo-Sheet_6: -4270263038563297348
+      Morrendo-Sheet_7: 7515785308221849728
+      Morrendo-Sheet_8: 3344903799579859327
+      Morrendo-Sheet_9: 6113198468587178845
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
