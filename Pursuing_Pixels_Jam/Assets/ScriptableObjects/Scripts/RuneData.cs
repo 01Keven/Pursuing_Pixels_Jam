@@ -4,6 +4,7 @@ public enum ActionType
 {
     Attack,
     Dash,
+    Telekinesis
 }
 
 

@@ -8,6 +8,8 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private Transform attackPoint;
 
+    [SerializeField] private PlayerAnimation playerAnim;
+
 
     //TESTE//
     //Mudar todas as referências de PlayerAbilities para verificar a partir do inventário.
@@ -18,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
         attackPoint = transform.Find("Aim/AttackPoint");
         Debug.Log(attackPoint.gameObject.name);
         playerAbilities = FindFirstObjectByType<PlayerAbilities>(); // Obtém a instância de PlayerAbilities
+        playerAnim = GetComponentInChildren<PlayerAnimation>(); // Obtém o componente de animação do jogador
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,9 +55,11 @@ public class PlayerAttack : MonoBehaviour
         // Ataque corpo a corpo
         else if (Input.GetButtonDown("Jump")) // assumir que "Fire1" é o botão de ataque
         {
-            if (hit != null && hit.CompareTag("Enemy")) // Verifica se há um inimigo no alcance
+            if (hit != null && hit.CompareTag("Enemies")) // Verifica se há um inimigo no alcance
             {
                 // Implementar lógica de ataque ao inimigo, como causar dano
+                playerAnim.OnAttack(); // Chama a animação de ataque
+                hit.GetComponent<Enemy>().TakeDamage(10); // Exemplo de dano, ajuste conforme necessário
                 Debug.Log("Enemy attacked!");
             }
         }

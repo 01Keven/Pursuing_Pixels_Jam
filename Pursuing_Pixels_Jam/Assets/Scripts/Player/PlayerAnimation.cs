@@ -73,4 +73,13 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.SetTrigger("Hit");
     }
+
+    public void OnAttack()
+    {
+        anim.SetTrigger("Melee");
+    }
+    public void OnDeath()
+    {
+        anim.SetTrigger("Death");
+    }   
 }

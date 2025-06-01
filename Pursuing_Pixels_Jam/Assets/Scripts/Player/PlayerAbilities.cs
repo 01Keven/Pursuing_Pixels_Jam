@@ -5,6 +5,7 @@ public class PlayerAbilities : MonoBehaviour
     [Header("Ability Status")]
     public bool hasAttack = false;
     public bool hasDash = false;
+    public bool hasTelecinesis = false;
 
     [Header("Ability Parameters")]
     public float AttackDamage = 2f;
