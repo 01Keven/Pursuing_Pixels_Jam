@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,6 +24,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float attackColdownTime = 1f; // Tempo de recarga entre ataques
     [SerializeField] protected float attackTimeCount;
     Transform attackPoint; // Ponto de ataque do inimigo, onde o ataque será aplicado
+
+    [Header("knockbackSystem")]
+    private bool isKnockedBack;
+    private Vector2 knockbackForce;
+    private float knockbackDuration;
+    private float stunDuration;
 
 
 
