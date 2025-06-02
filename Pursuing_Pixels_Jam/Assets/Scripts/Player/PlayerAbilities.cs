@@ -46,6 +46,10 @@ public class PlayerAbilities : MonoBehaviour
                         Debug.Log("Dash Habilitado: Default" + hasDash);
                         hasDash = true;
                         break;
+                    case ActionType.Telekinesis:
+                        hasTelecinesis = true;
+                        Debug.Log("Telecinese Habilitada: Default" + hasTelecinesis);
+                        break;
                     default:
                         break;
                 }
@@ -62,6 +66,10 @@ public class PlayerAbilities : MonoBehaviour
                         hasDash = true;
                         Debug.Log("Dash Habilitado: Multiply" + hasDash);
                         break;
+                    case ActionType.Telekinesis:
+                        hasTelecinesis = true;
+                        Debug.Log("Telecinese Habilitada: Multiply" + hasTelecinesis);
+                        break;
                     default:
                         break;
                 }
@@ -77,6 +85,10 @@ public class PlayerAbilities : MonoBehaviour
                     case ActionType.Dash:
                         hasDash = true;
                         // Aqui você pode adicionar lógica visual/UI para o dash
+                        break;
+                    case ActionType.Telekinesis:
+                        hasTelecinesis = true;
+                        // Aqui você pode adicionar lógica visual/UI para a telecinese
                         break;
                     default:
                         break;
@@ -105,6 +117,10 @@ public class PlayerAbilities : MonoBehaviour
                         hasDash = true;
                         Debug.Log("Dash Desabilitado: Default" + hasDash);
                         break;
+                        case ActionType.Telekinesis:
+                            hasTelecinesis = false;
+                            Debug.Log("Telecinese Desabilitada: Default" + hasTelecinesis);
+                            break;
                     default:
                         break;
                 }
@@ -121,6 +137,10 @@ public class PlayerAbilities : MonoBehaviour
                         hasDash = false;
                         Debug.Log("Dash Desabilitado: Multiply" + hasDash);
                         break;
+                        case ActionType.Telekinesis:
+                            hasTelecinesis = false;
+                            Debug.Log("Telecinese Desabilitada: Multiply" + hasTelecinesis);
+                            break;
                     default:
                         break;
                 }
@@ -136,6 +156,10 @@ public class PlayerAbilities : MonoBehaviour
                     case ActionType.Dash:
                         hasDash = true;
                         // Aqui você pode adicionar lógica visual/UI para o dash
+                        break;
+                    case ActionType.Telekinesis:
+                        hasTelecinesis = false;
+                        // Aqui você pode adicionar lógica visual/UI para a telecinese
                         break;
                     default:
                         break;

@@ -15,5 +15,5 @@ MonoBehaviour:
   runeID: 2
   runeName: TelekinesisRune
   runeDescription: 
-  runeIcon: {fileID: 0}
+  runeIcon: {fileID: 21300000, guid: aa63845350ddae44fb6bb6afaf9f0973, type: 3}
   actionType: 2

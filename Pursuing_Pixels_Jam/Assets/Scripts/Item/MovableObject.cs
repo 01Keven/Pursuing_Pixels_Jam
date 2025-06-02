@@ -12,12 +12,14 @@ public class MovableObject : MonoBehaviour
             if (IsMouseOver() && PlayerAbilities.Instance.hasTelecinesis)
             {
                 isDragging = true;
+                gameObject.layer = 9; // Muda o layer para "Telekinesis" (layer 9)
             }
         }
 
         if (Input.GetMouseButtonUp(1)) // botão direito solto
         {
             isDragging = false;
+            gameObject.layer = 0; // Restaura o layer original (layer 0)
         }
 
         if (isDragging)
